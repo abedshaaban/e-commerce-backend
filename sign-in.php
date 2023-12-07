@@ -38,7 +38,9 @@ $response = [];
 
 if ($q_rows == 0) {
     $response["status"] = false;
+    $response["status"] = null;
     $response["error"] = "incorrect credentials no user found.";
+
     
 } else {
     if(password_verify($pwd, $hash_pwd,)){
@@ -51,6 +53,7 @@ if ($q_rows == 0) {
 
     } else {
         $response["status"] = false;
+        $response["status"] = null;
         $response["error"] = "incorrect credentials no user found.";
     }
 }
