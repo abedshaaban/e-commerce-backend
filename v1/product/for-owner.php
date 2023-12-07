@@ -22,32 +22,29 @@ if ($user["status"] === false) {
         $response["status"] = false;
         $response["data"] = null;
         $response["error"]= "user is not authorized";
-
+        
         echo json_encode($response);
         exit;
     }
 
     $q = $mysqli->prepare("
         select
-            p.id, p.name, p.description, p.price, p.quantity, p.img_url
+            id, name, description, price, quantity, img_url
         from 
-            products p
-        join users u on p.owner_id = u.uuid
+            products
         where
-            u.uuid = ?
+            owner_id = ?
     ");
 
-    $q->bind_param(
-        "s",
-        $owner_id
-    );
+    $q->bind_param("s", $owner_id);
     $q->execute();
+
     $result = $q->get_result();
 
     $all_rows = [];
 
     while ($row = $result->fetch_assoc()) {
-        $response["data"][] = $row;
+        $all_rows[] = $row;
     }
 
     $response["status"] = true;
