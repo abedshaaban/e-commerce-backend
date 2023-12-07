@@ -1,6 +1,5 @@
 <?php
 
-include("./connection.php");
 require __DIR__ . '/vendor/autoload.php';
 
 use Firebase\JWT\JWT;
@@ -18,13 +17,32 @@ function create_token( $payload ){
     return $jwt;
 }
 
-function user_role( $token ){
+function get_token(){
+    $headers = getallheaders();
+
+    if (!isset($headers['Authorization']) || empty($headers['Authorization'])) {
+        http_response_code(401);
+        echo 'Authorization header not found in request';
+        exit;
+    }
+
+    if (! preg_match('/Bearer\s(\S+)/', $headers['Authorization'], $matches)) {
+        echo 'Token not found in request';
+        exit;
+    }
+
+    $jwt = explode(" ", $headers['Authorization'])[1];
+
+    return $jwt;
+}
+
+function decode_token(){
     global $key, $alg, $mysqli;
-    $response = [];
+    $decoded_res = [];
+    $token = get_token();
 
     try {
         $jwt_val = JWT::decode($token, new Key( $key, $alg));
-        $decoded_res = [];
         $decoded_res["status"] = true;
         $decoded_res["error"] = null;
         $decoded_res["payload"] = $jwt_val;
@@ -35,7 +53,15 @@ function user_role( $token ){
         $decoded_res["error"]=  $e->getMessage();
     }
 
-    if ( $decoded_res["status"] == false ){
+    return $decoded_res;
+}
+
+function user_role(){
+    global $key, $alg, $mysqli;
+    $decoded_res = decode_token();
+    $response = [];
+    
+    if ( $decoded_res["status"] === false ){
         $response["status"] = false;
         $response["data"] = null;
         $response["error"] = $decoded_res["error"];
@@ -46,7 +72,7 @@ function user_role( $token ){
             join roles r on  u.role = r.role_id
             where email = ?
         ");
-        $q->bind_param("s", $email);
+        $q->bind_param("s", $decoded_res["payload"]->email);
         $q->execute();
         $q->store_result();
         $q->bind_result(
@@ -60,19 +86,20 @@ function user_role( $token ){
         $q_rows = $q->num_rows;
         $response = [];
 
-        if ($q_rows == 0) {
+        if ($q_rows === 0) {
             $response["status"] = false;
             $response["data"] = null;
             $response["error"] = "invalid token.";
             
         } else {
-            if($decoded_res["data"]->pwd === $hash_pwd &&
-             $uuid === $decoded_res["data"]->uuid){
+            if($uuid === $decoded_res["payload"]->uuid){
                 $response["status"] = true;
+                $response["error"] = null;
                 $response["data"]["role"] = $role;
     
             } else {
                 $response["status"] = false;
+                $response["data"] = null;
                 $response["error"] = "incorrect credentials no user found.";
             }
         }
