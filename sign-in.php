@@ -32,9 +32,6 @@ $q->fetch();
 $q_rows = $q->num_rows;
 $response = [];
 
-// $response['status'] = true;
-// $response['data'] = null;
-// $response['error'] = null;
 
 if ($q_rows == 0) {
     $response["status"] = false;

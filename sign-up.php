@@ -23,8 +23,8 @@ $q->execute();
 
 $response = [];
 
-$response['status'] = true;
-$response['data'] = null;
-$response['error'] = null;
+$response["status"] = true;
+$response["data"] = null;
+$response["error"] = null;
 
 echo json_encode($response);
