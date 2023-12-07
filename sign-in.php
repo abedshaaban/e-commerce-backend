@@ -2,6 +2,7 @@
 
 include("./connection.php");
 require __DIR__ . '/utils.php';
+require __DIR__ . '/token.php';
 
 
 $body = get_body();
@@ -37,16 +38,22 @@ if ($q_rows == 0) {
     $response["status"] = false;
     $response["status"] = null;
     $response["error"] = "incorrect credentials no user found.";
-
     
 } else {
     if(password_verify($pwd, $hash_pwd,)){
+        $payload = [];
+        $payload["uuid"] = $uuid;
+        $payload["email"] = $email;
+        $payload["role"] = $role;
+        $token = create_token($payload);
+        
         $response["status"] = true;
         $response["error"] = null;
         $response["data"]["email"] = $email;
         $response["data"]["first_name"] = $f_name;
         $response["data"]["last_name"] = $l_name;
-        $response["data"]["privilege"] = $role;
+        $response["data"]["role"] = $role;
+        $response["data"]["token"] = $token;
 
     } else {
         $response["status"] = false;
