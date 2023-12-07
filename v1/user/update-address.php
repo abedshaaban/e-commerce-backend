@@ -9,8 +9,12 @@ $body = get_body();
 $decoded_token = decode_token();
 $user = user_role();
 
-$f_name = $body["first_name"];
-$l_name = $body["last_name"];
+$country = $body["country"];
+$city = $body["city"];
+$phone_number = $body["phone_number"];
+$zip_code = $body["zip_code"];
+$address_one = $body["address_one"];
+$address_two = $body["address_two"];
 $uuid = $decoded_token["payload"]->uuid;
 $response = [];
 
@@ -26,18 +30,26 @@ if ($user["status"] === false) {
 
     $q = $mysqli->prepare("
         UPDATE
-            users
+            address
         SET
-            first_name = ?,
-            last_name = ?
+            country = ?,
+            city = ?,
+            phone_number = ?,
+            zip_code = ?,
+            address_one = ?,
+            address_two = ?
         WHERE 
-            uuid = ?
+            user_id = ?
     ");
 
     $q->bind_param(
-        "sss",
-        $f_name,
-        $l_name,
+        "sssssss",
+        $country,
+        $city,
+        $phone_number,
+        $zip_code,
+        $address_one,
+        $address_two,
         $uuid
     );
     $q->execute();
