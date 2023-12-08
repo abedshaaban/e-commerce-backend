@@ -5,8 +5,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 
-Route::get("/auth/register", [UserController::class, "register"]);
-Route::get("/auth/sign-in", [UserController::class, "sign_in"]);
+Route::post("/auth/register", [UserController::class, "register"]);
+Route::post("/auth/sign-in", [UserController::class, "sign_in"]);
 
 /*
 |--------------------------------------------------------------------------
