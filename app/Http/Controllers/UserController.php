@@ -10,7 +10,12 @@ class UserController extends Controller
         return 'new user created';
     }
 
-    public function sign_in(){
-        return 'hello user';
+    public function sign_in(Request $request){
+        $user = [];
+
+        $user["email"] = $request->email;
+        $user["password"] = $request->password;
+
+        return $user;
     }
 }
