@@ -8,6 +8,7 @@ use Illuminate\Notifications\Notifiable;
 use PHPOpenSourceSaver\JWTAuth\Contracts\JWTSubject;
 
 
+
 class User extends Authenticatable implements JWTSubject
 {
     use HasFactory, Notifiable;
@@ -17,6 +18,9 @@ class User extends Authenticatable implements JWTSubject
 
     protected $fillable = ['uuid', 'email', 'password', 'f_name', 'l_name', 'role_id'];
 
+    protected $hidden = ['remember_token'];
+
+
     public function getJWTIdentifier()
     {
         return $this->getKey();
@@ -24,6 +28,12 @@ class User extends Authenticatable implements JWTSubject
 
     public function getJWTCustomClaims()
     {
-        return [];
+        return [
+            'email'=>$this->email,
+            'password'=>$this->password,
+            'f_name'=>$this->f_name,
+            'l_name'=>$this->l_name,
+
+        ];
     }
 }
