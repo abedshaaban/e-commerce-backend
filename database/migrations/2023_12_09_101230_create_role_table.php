@@ -13,21 +13,21 @@ return new class extends Migration
     {
         Schema::create('roles', function (Blueprint $table) {
             $table->id('id');
-            $table->enum('name', ['admin', 'seller', 'user']);
+            $table->enum('privilege', ['admin', 'seller', 'user']);
         });
 
         DB::table('roles')->insert([
            [ 
             'id' => 1,
-            'name' => 'admin',
+            'privilege' => 'admin',
             ],
            [ 
             'id' => 2,
-            'name' => 'seller',
+            'privilege' => 'seller',
             ],
            [ 
             'id' => 3,
-            'name' => 'user',
+            'privilege' => 'user',
             ],
             
         ]);

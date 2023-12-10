@@ -13,7 +13,7 @@ class UserController extends Controller
         $token_data = auth()->payload();
 
         $user = User::
-        select('uuid', 'email', 'f_name', 'l_name', 'roles.name')
+        select('uuid', 'email', 'f_name', 'l_name', 'roles.privilege')
         ->join('roles', 'users.role_id','=','roles.id')
         ->where('email', $token_data['email'])->first();
 
@@ -25,7 +25,7 @@ class UserController extends Controller
         $token_data = auth()->payload();
 
         $user = User::
-        select('uuid', 'email', 'f_name', 'l_name', 'roles.name')
+        select('uuid', 'email', 'f_name', 'l_name', 'roles.privilege')
         ->join('roles', 'users.role_id','=','roles.id')
         ->where('email', $token_data['email'])->first();
 
