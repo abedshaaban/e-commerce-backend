@@ -39,5 +39,6 @@ Route::controller(CartController::class)->group(function () {
 Route::controller(ProductController::class)->group(function () {
     Route::post('/product/create', 'create_product');
     Route::get('/product/get', 'get_products');
+    Route::post('/product/update', 'update_product');
 
 });

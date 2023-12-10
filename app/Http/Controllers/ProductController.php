@@ -43,4 +43,30 @@ class ProductController extends Controller
         return response()->json($product);
 
     }
+
+    public function update_product(Request $request){
+        $token_data = auth()->payload();
+        
+        if(!$token_data['privilege'] === 'seller'){
+            return response()->json([
+                'status' => 'error',
+                'message' => 'not authorized.',
+            ], 401);
+        }
+
+        $product = Product::
+            where('seller_id', $token_data['uuid'])
+            ->where('id', $request-> id)
+            ->first();
+
+        $product->update([
+            'name' => $request-> name ?? $product->name,
+            'description' => $request-> description ?? $product->description,
+            'price' => $request-> price ?? $product->price,
+            'quantity' => $request-> quantity ?? $product->quantity,
+        ]);
+
+        return response()->json($product);
+
+    }
 }
