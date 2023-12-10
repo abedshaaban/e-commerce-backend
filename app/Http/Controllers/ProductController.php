@@ -69,4 +69,9 @@ class ProductController extends Controller
         return response()->json($product);
 
     }
+    
+    public function add_to_cart(Request $request){
+       // add product to user cart
+
+    }
 }

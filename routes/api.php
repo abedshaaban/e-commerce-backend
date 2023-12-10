@@ -40,5 +40,6 @@ Route::controller(ProductController::class)->group(function () {
     Route::post('/product/create', 'create_product');
     Route::get('/product/get', 'get_products');
     Route::post('/product/update', 'update_product');
+    Route::post('/product/add', 'add_to_cart');
 
 });
