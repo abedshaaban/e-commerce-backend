@@ -7,8 +7,6 @@ use App\Models\Cart;
 
 class CartController extends Controller
 {
-    //
-
     public function create_cart(){
         $token_data = auth()->payload();
 

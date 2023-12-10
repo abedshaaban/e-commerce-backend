@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AddressController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -32,5 +33,10 @@ Route::controller(CartController::class)->group(function () {
     Route::post('/user/cart/create', 'create_cart');
     Route::post('/user/cart/get', 'get_cart_ids');
     Route::post('/user/cart/get/{id}', 'get_cart_by_id');
+
+});
+
+Route::controller(ProductController::class)->group(function () {
+    Route::post('/user/product/create', 'create_product');
 
 });

@@ -11,5 +11,5 @@ class Product extends Model
 
     public $timestamps = false;
 
-    protected $fillable = ['id', 'name', 'description', 'price', 'quantity', 'user_id'];
+    protected $fillable = ['id', 'name', 'description', 'price', 'quantity', 'seller_id'];
 }
