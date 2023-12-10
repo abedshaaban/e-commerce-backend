@@ -7,9 +7,16 @@ use App\Models\Product;
 
 class ProductController extends Controller
 {
+    public function get_products()
+    {
+        $products = Product::limit(10)->get();
+
+        return response()->json($products);
+
+    }
+
     public function create_product(Request $request){
         $token_data = auth()->payload();
-
         
         if(!$token_data['privilege'] === 'seller'){
             return response()->json([
