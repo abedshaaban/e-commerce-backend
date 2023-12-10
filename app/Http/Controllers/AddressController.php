@@ -24,7 +24,7 @@ class AddressController extends Controller
         $token_data = auth()->payload();
 
         $address = Address::
-        select('country', 'city', 'zip_code', 'address')
+        select('id', 'country', 'city', 'zip_code', 'address')
         ->where('user_id', $token_data['uuid'])->get();
 
         return  response()->json($address);
