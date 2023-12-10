@@ -30,5 +30,7 @@ Route::controller(AddressController::class)->group(function () {
 
 Route::controller(CartController::class)->group(function () {
     Route::post('/user/cart/create', 'create_cart');
+    Route::post('/user/cart/get', 'get_cart_ids');
+    Route::post('/user/cart/get/{id}', 'get_cart_by_id');
 
 });
