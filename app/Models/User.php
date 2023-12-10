@@ -29,11 +29,12 @@ class User extends Authenticatable implements JWTSubject
     public function getJWTCustomClaims()
     {
         return [
+            'uuid'=>$this->uuid,
             'email'=>$this->email,
             'password'=>$this->password,
             'f_name'=>$this->f_name,
             'l_name'=>$this->l_name,
-
+            'role'=>$this->role_id,
         ];
     }
 }
