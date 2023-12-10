@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Product;
+use App\Models\CartItem;
 
 class ProductController extends Controller
 {
@@ -70,8 +71,15 @@ class ProductController extends Controller
 
     }
     
-    public function add_to_cart(Request $request){
-       // add product to user cart
+    public function add_to_cart($cart_id, $product_id, Request $request){
+
+        $cart_item = CartItem::insert([
+            'product_id' => $product_id,
+        	'quantity' => $request->quantity,
+            'cart_id' => $cart_id 	
+        ]);
+
+        return response()->json($cart_item);
 
     }
 }
