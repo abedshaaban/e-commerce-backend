@@ -10,14 +10,12 @@ class UserController extends Controller
 {
     public function get_user_info()
     {
-        $user = [];
         $token_data = auth()->payload();
 
-        $user['uuid'] = $token_data->get('uuid');
-        $user['email'] = $token_data->get('email');
-        $user['f_name'] = $token_data->get('f_name');
-        $user['l_name'] = $token_data->get('l-name');
-        $user['role'] = $token_data->get('role');
+        $user = User::
+        select('uuid', 'email', 'f_name', 'l_name', 'roles.name')
+        ->join('roles', 'users.role_id','=','roles.id')
+        ->where('email', $token_data['email'])->first();
 
         return  response()->json($user);
     }
