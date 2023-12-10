@@ -15,5 +15,6 @@ Route::controller(AuthController::class)->group(function () {
 
 Route::controller(UserController::class)->group(function () {
     Route::post('/user/info', 'get_user_info');
+    Route::post('/user/update-info', 'update_user_info');
 
 });
