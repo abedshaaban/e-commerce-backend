@@ -23,5 +23,6 @@ Route::controller(UserController::class)->group(function () {
 Route::controller(AddressController::class)->group(function () {
     Route::post('/user/create-address', 'create_user_address');
     Route::post('/user/address', 'get_user_address');
+    Route::post('/user/update-address', 'update_user_address');
 
 });
