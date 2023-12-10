@@ -15,14 +15,14 @@ Route::controller(AuthController::class)->group(function () {
 });
 
 Route::controller(UserController::class)->group(function () {
-    Route::post('/user/info', 'get_user_info');
-    Route::post('/user/update-info', 'update_user_info');
+    Route::post('/user/info/get', 'get_user_info');
+    Route::post('/user/info/update', 'update_user_info');
     
 });
 
 Route::controller(AddressController::class)->group(function () {
-    Route::post('/user/create-address', 'create_user_address');
-    Route::post('/user/address', 'get_user_address');
-    Route::post('/user/update-address', 'update_user_address');
+    Route::post('/user/address/create', 'create_user_address');
+    Route::post('/user/address/get', 'get_user_address');
+    Route::post('/user/address/update', 'update_user_address');
 
 });
