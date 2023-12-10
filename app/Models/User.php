@@ -19,11 +19,13 @@ class User extends Authenticatable implements JWTSubject
     protected $fillable = ['uuid', 'email', 'password', 'f_name', 'l_name', 'role_id'];
 
     protected $hidden = ['remember_token'];
+    public $incrementing = false;
 
 
     public function getJWTIdentifier()
     {
-        return $this->getKey();
+        // return $this->getKey();
+        return $this->uuid;
     }
 
     public function getJWTCustomClaims()

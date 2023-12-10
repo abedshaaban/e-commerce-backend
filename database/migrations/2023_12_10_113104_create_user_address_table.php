@@ -13,15 +13,15 @@ return new class extends Migration
     {
         Schema::create('addresses', function (Blueprint $table) {
             $table->id();
-            $table->uuid('user_id')
-            ->foreignUuid('user_id')
-            ->references('uuid')
-            ->on('users')
-            ->onDelete('cascade');
             $table->string('country')->nullable();
             $table->string('city')->nullable();
             $table->string('zip_code')->nullable();
             $table->string('address')->nullable();
+            $table
+            ->foreignUuid('user_id')
+            ->references('uuid')
+            ->on('users')
+            ->onDelete('cascade');
         });
     }
 
