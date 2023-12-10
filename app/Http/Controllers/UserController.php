@@ -17,16 +17,14 @@ class UserController extends Controller
 
     public function get_user_info(Request $request)
     {
-        // $token = $request->bearerToken(); 
+        $token = $request->bearerToken(); 
         // $user = Auth::user();
 
-        // $info = JWT->parseToken($token);
-
-        // $payload = new Payload();
-
+        // $info = JWT->parseToken();
 
  
 
-        // return response()->json($payload->get());
+        return response()->json($token);
+
     }
 }
