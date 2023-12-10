@@ -23,17 +23,22 @@ class CartController extends Controller
 
         $cart = Cart::
         select('id')
-        ->where('user_id',$token_data['uuid'])
-        ->get();
+            ->where('user_id',$token_data['uuid'])
+            ->get();
 
         return response()->json($cart);
 
     }
 
     public function get_cart_by_id($id){
-        // to do, return cart items.
+        $token_data = auth()->payload();
 
-        return response()->json($id);
+        $cart = Cart::
+            where('user_id',$token_data['uuid'])
+            ->where('id', $id)
+            ->get();
+
+        return response()->json($cart);
 
     }
 }
